@@ -7,10 +7,12 @@ import tailwind from "@astrojs/tailwind";
 // https://astro.build/config
 import svelte from "@astrojs/svelte";
 
+import cloudflare from "@astrojs/cloudflare";
+
 // https://astro.build/config
 export default defineConfig({
   output: "server",
-  adapter: vercel(),
+  adapter: cloudflare(),
   integrations: [
     tailwind({
       config: {

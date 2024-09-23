@@ -85,8 +85,10 @@ export const getProducts = async (options: {
   }
 
   const productsList = products.edges.map((edge: any) => edge.node);
+  const productsListFiltered = filterDutch(productsList);
+
   const ProductsResult = z.array(ProductResult);
-  const parsedProducts = ProductsResult.parse(productsList);
+  const parsedProducts = ProductsResult.parse(productsListFiltered);
 
   return parsedProducts;
 };
@@ -124,8 +126,10 @@ export const getProductRecommendations = async (options: {
   );
   const { productRecommendations } = data;
 
+  const productRecommendationsDutch = filterDutch(productRecommendations);
+
   const ProductsResult = z.array(ProductResult);
-  const parsedProducts = ProductsResult.parse(productRecommendations);
+  const parsedProducts = ProductsResult.parse(productRecommendationsDutch);
 
   return parsedProducts;
 };
@@ -181,3 +185,16 @@ export const getCart = async (id: string) => {
 
   return parsedCart;
 };
+
+export const filterDutch = function filterDutch(products: any[]) {
+  if (products.length === 0) {
+    return products;
+  }
+  if (products.length > 0) {
+    const productsFiltered = products.filter((product) => {
+      return product.lang.value === "Dutch";
+    })
+    return productsFiltered 
+  }
+  return [];
+}

@@ -53,6 +53,9 @@ fragment productFragment on Product {
   id
   title
   handle
+  lang: metafield(key: "language", namespace: "custom") {
+          value
+        }
   images (first: 10) {
     nodes {
       url
